@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController # GET /users/1
-    before_action :set_user, only: %i[show update]
+    before_action :set_user, only: %i[show update destroy]
     
     def show
         render json: User.find(params[:id]) 
@@ -30,6 +30,12 @@ class Api::V1::UsersController < ApplicationController # GET /users/1
         end
     end
 
+    # DELETE /users/1
+    def destroy
+        @user.destroy
+        head 204
+    end
+
     private
 
     # Only allow a trusted parameter "white list" through.
@@ -40,4 +46,5 @@ class Api::V1::UsersController < ApplicationController # GET /users/1
     def set_user
         @user = User.find(params[:id])
     end
+
 end
