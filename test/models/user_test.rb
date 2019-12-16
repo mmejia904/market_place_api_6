@@ -18,4 +18,14 @@ class UserTest < ActiveSupport::TestCase
       assert_not user.valid?
   end
 
+  test 'destroy user should destroy inked product' do
+    assert_difference('Product.count', -1) do
+      users(:one).destroy
+    end
+  end
+
+end
+
+class User < ApplicationRecord
+  has_many :products, dependent: :destroy
 end
